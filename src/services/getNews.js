@@ -6,8 +6,10 @@ const NEWS_API_KEY = process.env.REACT_APP_API_KEY
 export const getNews = async ({searchQuery = 'technology'}) => {
     try{
         
-        const path = '/top-headlines'
-        const query = `?country=id&apiKey=${NEWS_API_KEY}`
+        const path = '/everything'
+        // const path = '/top-headlines'
+        // const query = `?country=id&apiKey=${NEWS_API_KEY}`
+        const query =`?q=${searchQuery}&apiKey=${NEWS_API_KEY}`
         const endpointURL = `${NEWS_API_BASE_URL}${path}${query}`
 
         const res = await axios.get(endpointURL)
@@ -27,4 +29,5 @@ export const getNews = async ({searchQuery = 'technology'}) => {
     } catch (error) {  
         console.log('Error getting tech news: ', error)
     }
+
 }

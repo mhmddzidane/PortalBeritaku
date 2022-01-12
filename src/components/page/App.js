@@ -1,22 +1,26 @@
-import Container from "./components/Container";
-import Navbar from "./components/Navbar";
+import Container from "../Container";
+import Navbar from "../Navbar";
 import {useState, useEffect} from 'react'
-import { getNews } from "./services/getNews";
-import Loading from "./components/Loading";
-import Error from "./components/Error";
-import NewsList from "./components/NewsList";
+import { getNews } from "../../services/getNews";
+import Loading from "../Loading";
+import Error from "../Error";
+import NewsList from "../NewsList";
+import { useParams } from "react-router-dom";
 
 function App() {
   const [articles, setArticles] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
 
+  const {id} = useParams()
+  const DEFAULT_SEARCH_QUERY = 'microsoft'
+
   useEffect(() => {
     const fetchTechNews = async () => {
       setLoading(true)
 
       const res = await getNews({
-        searchQuery: 'microsoft'
+        searchQuery: id || DEFAULT_SEARCH_QUERY
       })
       
       if(!res){
@@ -33,7 +37,7 @@ function App() {
     
     fetchTechNews()
 
-  }, [])
+  }, [id])
 
   return (
     <>
